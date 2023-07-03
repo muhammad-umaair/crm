@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ArticlesController;
 
 /*
@@ -21,6 +22,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
+
+Route::controller(FileController::class)->group(function () {
+
+    Route::post('/uploader', 'upload');
+    Route::get('/downloader', 'download');
+});
 
 Route::controller(ArticlesController::class)->group(function () {
     Route::get('/articles', 'index');
