@@ -1,0 +1,9 @@
+$startDate = '2023-06-01';
+$endDate = '2023-06-30';
+
+$doctor = Doctor::select('doctors.*')
+    ->join('surgeries', 'doctors.id', '=', 'surgeries.doctor_id')
+    ->whereBetween('surgeries.date', [$startDate, $endDate])
+    ->groupBy('doctors.id')
+    ->orderByRaw('COUNT(surgeries.id) DESC')
+    ->first();
